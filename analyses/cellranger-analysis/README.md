@@ -19,9 +19,14 @@ Please note that the `sample_prefix` in the YAML needs to be always set as `RNA_
 - `j2.sh`: 
    - Format of metrics and statistics from the CellRanger multi algorithm is different than the one from the CellRanger count, so we will need to convert the files. This is being taken care of in the `j2-prepare-CSV.R` script before running the summary. 
 
-- `multi_config_file`:
-    - User needs to define the probe set and information for the library to be demultiplexed. We recommend setting `create_bam_value` to `false` to reduce memory usage per project. Moreover, please note that usually there is not much benefit of creating BAM files from the Flex analysis. Similarly, there is really no general utility of aligning the Flex reads to the genome reference, and that's why for Flex data analysis, the [input of transcriptome reference is optional](https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/inputs/cr-multi-config-csv-opts#gene-expression).
+- `multi_config_dir`: Absolute path to cellranger input dir of the project with the multi_config files for each library.
 
+- `multi_config_file`: Users must define the probe set and library information for demultiplexing. Each library should be described in a separate file, named in the format `multi_config_<library_ID>.csv`, and saved as a CSV.
+   - **Memory and BAM File Recommendation**: We recommend setting create_bam_value to false to minimize memory usage. In most cases, generating BAM files from Flex analysis provides little added value. Additionally, aligning Flex reads to a genome reference is generally unnecessary, which is why specifying a transcriptome reference is optional for Flex data analysis.
+
+   - **Dual-Genome Alignment and Mouse Contamination**: Dual-genome alignment is not an effective method for detecting mouse contamination in Flex data. The 10x Genomics Flex kit uses a probe panel targeting specific human or mouse transcripts and generates probe-derived molecules, rather than directly sequencing native RNA. Since probe design constrains the sequences, reads will only align to the intended human targets, regardless of any mouse material present. As a result, dual-genome alignment will not yield meaningful contamination detection in Flex analysis and hence, it is not supported.
+ 
+ 
 ## Run module on HPC
 
 To run all of the scripts in this module sequentially on an interactive session on HPC, please run the following command from an interactive compute node:
