@@ -276,10 +276,14 @@ cellranger_results_df <- readr::read_tsv(cellranger_results_file, guess_max = 10
   relocate(Sample_ID) %>%
   arrange(Sample_ID) %>%
   mutate_if(is.numeric, ~ scales::comma(.)) %>%
-  select(Sample_ID, Cells, Mean_reads_per_cell, Median_UMI_counts_per_cell, Reads_confidently_mapped_to_probe_set, Warnings, MajorWarnings) %>%
+  select(Sample_ID, `Cells:_Cells`, `Cells:_Mean_reads_per_cell`, `Cells:_Median_UMI_counts_per_cell`, `Cells:_Reads_confidently_mapped_to_probe_set`, Warnings, MajorWarnings) %>%
   mutate(Minor_Flags = Warnings,
-         Major_Flags = MajorWarnings) %>%
-  select(-Warnings, -MajorWarnings)  # Remove original columns to avoid redundancy
+         Major_Flags = MajorWarnings,
+         Cells_Cells = `Cells:_Cells`, 
+         Cells_Mean_reads_per_cell = `Cells:_Mean_reads_per_cell`, 
+         Cells_Median_UMI_counts_per_cell = `Cells:_Median_UMI_counts_per_cell`, 
+         Cells_Reads_confidently_mapped_to_probe_set = `Cells:_Reads_confidently_mapped_to_probe_set`) %>%
+  select(Sample_ID, Cells_Cells, Cells_Mean_reads_per_cell, Cells_Median_UMI_counts_per_cell, Cells_Reads_confidently_mapped_to_probe_set, Minor_Flags, Major_Flags)
 ```
 
 ```{r, fig.align = "left", results = "asis", message = FALSE, warning = FALSE, echo = FALSE}
