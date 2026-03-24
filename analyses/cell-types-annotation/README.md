@@ -1,4 +1,4 @@
-# Pipeline for annotating cell types for sc-/sn-RNA-Seq Analysis in 10X Genomics data
+# Pipeline for annotating cell types for sc-/sn-RNA-Seq Analysis in 10X Flex Genomics data
 
 ## Usage
 
