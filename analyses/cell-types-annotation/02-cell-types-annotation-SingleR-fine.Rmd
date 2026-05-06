@@ -143,8 +143,7 @@ suppressPackageStartupMessages({
   library(SingleR)
   library(scooter)
   library(knitr)
-
-  }) 
+}) 
 ```
 
 # Directories and paths to file Inputs/Outputs

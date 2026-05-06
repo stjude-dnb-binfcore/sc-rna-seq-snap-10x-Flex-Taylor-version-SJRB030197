@@ -148,7 +148,7 @@ suppressPackageStartupMessages({
   library(Seurat)
   library(scooter)
   library(knitr)
-  }) 
+}) 
 ```
 
 # Directories and paths to file Inputs/Outputs
